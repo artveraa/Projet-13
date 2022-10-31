@@ -10,7 +10,7 @@ function Header() {
                 <img src={Logo} alt="Argent Bank Logo"/>
             </Link>
             <div className={"headerItem"}>
-                <Link to={"/sign-in"} className="btn">Sign In</Link>
+                <Link to={"/profile"} className="btn">Sign In</Link>
             </div>
         </header>
     )
