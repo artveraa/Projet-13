@@ -1,30 +1,26 @@
+import axios from "axios";
+
 const API_URL = 'http://localhost:3001/api/v1/user';
 const register = (email, password, firstname, lastname) => {
-    return fetch(API_URL + '/signup', {
-        body: {
-            email,
-            password,
-            firstname,
-            lastname
-        },
-        method:"POST",
-        headers:{
-            "Content-Type": "application/json",
-        }
+    return axios.post(API_URL + '/signup', {
+        email,
+        password,
+        firstname,
+        lastname
     });
 }
 
 const login = (email, password) => {
-    // return axios.post(API_URL + "/login", {
-    //     email,
-    //     password
-    // }).then((response) => {
-    //     if (response.data.accessToken) {
-    //         localStorage.setItem("user", JSON.stringify(response.data));
-    //     }
-    //
-    //     return response.data;
-    // })
+    return axios.post(API_URL + "/login", {
+        email,
+        password
+    }).then((response) => {
+        if (response.data.accessToken) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+        }
+
+        return response.data;
+    })
 };
 
 const logout = () => {
