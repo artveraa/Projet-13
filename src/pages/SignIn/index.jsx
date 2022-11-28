@@ -6,8 +6,10 @@ import {Navigate, useNavigate} from "react-router-dom";
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
 
 import {login} from '../../redux/actions/auth';
+import User from "../User/index.jsx";
 
 const required = (value) => {
     if(!value) {
@@ -30,7 +32,7 @@ function SignIn(props) {
     const [loading, setLoading] = useState(false);
 
     const { isLoggedIn } = useSelector(state => state.auth);
-    // const { message } = useSelector(state => state.message);
+    const { message } = useSelector(state => state.message);
 
     const dispatch = useDispatch();
 
@@ -54,8 +56,8 @@ function SignIn(props) {
         if (checkBtn.current.context._errors.length === 0) {
             dispatch(login(username, password))
                 .then(() => {
-                    navigate("/profile");
-                    window.location.reload();
+                    navigate("/sign-in");
+                    //window.location.reload();
                 })
                 .catch(() => {
                     setLoading(false);
@@ -66,7 +68,7 @@ function SignIn(props) {
     };
 
     if (isLoggedIn) {
-        return <Navigate to="/profile" />;
+        return <Navigate to="/profile" replace={true} />;
     }
     return (
         <main className="main bg-dark">
@@ -98,12 +100,12 @@ function SignIn(props) {
                     </div>
 
                     <div className="form-group">
-                        <button className="btn btn-primary btn-block" disabled={loading}>
+                        <CheckButton className="btn btn-primary btn-block" disabled={loading} ref={checkBtn}>
                             {loading && (
                                 <span className="spinner-border spinner-border-sm"></span>
                             )}
                             <span>Login</span>
-                        </button>
+                        </CheckButton>
                     </div>
 
                 </Form>

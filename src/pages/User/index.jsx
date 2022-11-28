@@ -1,10 +1,26 @@
 import "./style.scss"
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import UserInfos from "../../components/UserInfos/index.jsx";
+import {getUserData} from '../../redux/actions/getUser.js'
+import store from "../../redux/store.js";
 
 function User() {
+    const dispatch = useDispatch();
+
+    const user = useSelector(state => state.auth);
+
+
+
+    useEffect(() => {
+        dispatch(getUserData(user.user.body.token));
+    })
+
+
     return (
         <main className="main bg-dark">
             <div className="header">
+                <UserInfos />
                 <h1>Welcome back<br/>Tony Jarvis!</h1>
                 <button className="edit-button">Edit Name</button>
             </div>
